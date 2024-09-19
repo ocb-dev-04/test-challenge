@@ -71,7 +71,7 @@ public class EvaluateReadingTests
     [InlineData("secret-ABC-123-XYZ-001", "1.0")]
     [InlineData("secret-ABC-123-XYZ-001", "a.b.c")]
     [InlineData("secret-ABC-123-XYZ-001", "..")]
-    public async Task ReturnErrorWhenInvalidFirmware(string secret, string firmware)
+     public async Task ReturnErrorWhenInvalidFirmware(string secret, string firmware)
     {
         var httpClient = _application.CreateClient();
         httpClient.DefaultRequestHeaders.Add("x-device-shared-secret", secret);
@@ -90,7 +90,7 @@ public class EvaluateReadingTests
         {
             var expectedError = "The firmware value does not match semantic versioning format.";
 
-            var problemDetails = await response.Content.ReadFromJsonAsync<ValidationProblemDetails>();
+            ValidationProblemDetails? problemDetails = await response.Content.ReadFromJsonAsync<ValidationProblemDetails>();
             
             if (problemDetails?.Errors.ContainsKey("FirmwareVersion") == true)
             {
